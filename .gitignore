@@ -1,0 +1,18 @@
+# GoLand files
+.idea
+
+# .env file
+.env
+
+# logfiles
+*.log
+
+# binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# postgres data
+identity-forecaster-postgres

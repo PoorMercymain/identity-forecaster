@@ -1,0 +1,305 @@
+{
+    "schemes": [
+        "http"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "Сервис, получающий ФИО, и обогащающий информацию о нем из открытых источников",
+        "title": "Identity Forecaster API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8787",
+    "basePath": "/",
+    "paths": {
+        "/create": {
+            "post": {
+                "description": "Запрос для добавления информации о новой сущности",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Persons"
+                ],
+                "summary": "Запрос добавления сущности",
+                "parameters": [
+                    {
+                        "description": "person info",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.Person"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Accepted"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/delete/{id}": {
+            "delete": {
+                "description": "Запрос для удаления сущности",
+                "tags": [
+                    "Persons"
+                ],
+                "summary": "Запрос удаления сущности",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "example": 1,
+                        "description": "person id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/read": {
+            "get": {
+                "description": "Запрос для получения сохраненной информации о сущностях с возможностью применения фильтров и пагинацией",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Persons"
+                ],
+                "summary": "Запрос чтения информации о сущностях",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "example": 1,
+                        "description": "номер страницы (1 и больше)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "example": 1,
+                        "description": "максимальное число записей на странице (1 и больше)",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "example": 1,
+                        "description": "нижняя граница возраста (включительно)",
+                        "name": "agegt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "example": 1,
+                        "description": "верхняя граница возраста (не включительно)",
+                        "name": "agelt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "example": 1,
+                        "description": "конкретный возраст (если заданы границы - перезаписывает их)",
+                        "name": "age",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "example": 1,
+                        "description": "нижняя граница id (включительно)",
+                        "name": "idgt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "example": 1,
+                        "description": "верхняя граница id (не включительно)",
+                        "name": "idlt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "example": 1,
+                        "description": "конкретный id (если заданы границы - перезаписывает их)",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "example": "\"Dmitriy\"",
+                        "description": "конкретное имя",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "example": "\"Smirnov\"",
+                        "description": "конкретная фамилия",
+                        "name": "surname",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "example": "\"Petrovich\"",
+                        "description": "конкретное отчество",
+                        "name": "patronymic",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "example": "\"male\"",
+                        "description": "конкретный гендер",
+                        "name": "gender",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "example": "\"RU\"",
+                        "description": "конкретная национальность",
+                        "name": "nationality",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/update/{id}": {
+            "put": {
+                "description": "Запрос для обновления информации о сущности (кроме id)",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Persons"
+                ],
+                "summary": "Запрос обновления информации о сущности",
+                "parameters": [
+                    {
+                        "description": "person description",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.PersonWithAPIData"
+                        }
+                    },
+                    {
+                        "type": "integer",
+                        "example": 1,
+                        "description": "person id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "domain.Person": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "Dmitriy"
+                },
+                "patronymic": {
+                    "type": "string",
+                    "example": "Petrovich"
+                },
+                "surname": {
+                    "type": "string",
+                    "example": "Smirnov"
+                }
+            }
+        },
+        "domain.PersonWithAPIData": {
+            "type": "object",
+            "properties": {
+                "age": {
+                    "type": "integer",
+                    "example": 25
+                },
+                "gender": {
+                    "type": "string",
+                    "example": "male"
+                },
+                "is_deleted": {
+                    "type": "boolean",
+                    "example": false
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Dmitriy"
+                },
+                "nationality": {
+                    "type": "string",
+                    "example": "RU"
+                },
+                "patronymic": {
+                    "type": "string",
+                    "example": "Petrovich"
+                },
+                "surname": {
+                    "type": "string",
+                    "example": "Smirnov"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "description": "Группа запросов для управления сущностями",
+            "name": "Persons"
+        }
+    ]
+}

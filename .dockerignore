@@ -1,0 +1,21 @@
+# Logs
+*.log
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# VS Code directory
+.vscode
+
+# GoLand directory
+.idea
+
+# Postgres data
+user-segmenter-postgres/
+
+# example env file
+.env.example
