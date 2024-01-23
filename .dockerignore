@@ -15,7 +15,7 @@
 .idea
 
 # Postgres data
-user-segmenter-postgres/
+identity-forecaster-postgres/
 
 # example env file
 .env.example
