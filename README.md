@@ -1,5 +1,7 @@
 # Тестовое задание
 Формулировка задачи выглядела следующим образом
+<br>
+
 ![задание](https://github.com/PoorMercymain/identity-forecaster/assets/67076111/e027baeb-03ff-4699-bef1-1a15a39116af)
 
 # Как запустить
