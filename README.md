@@ -20,6 +20,9 @@
 # Миграции
 Миграции применяются при подключении сервиса к постгресу, для этого используется пакет [goose](https://github.com/pressly/goose) и файл sql, лежащий в папке [migrations](https://github.com/PoorMercymain/identity-forecaster/tree/master/internal/app/forecaster/repository/migrations)
 
+# Тесты
+Чтобы запустить тесты, в терминале корневой папки можно прописать `go test ./...`
+
 # Примеры запросов
 
 `http://localhost:8787/create` - метод добавления новой сущности
