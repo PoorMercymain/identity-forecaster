@@ -24,7 +24,7 @@
                 "summary": "Запрос добавления сущности",
                 "parameters": [
                     {
-                        "description": "person info",
+                        "description": "информация о сущности",
                         "name": "input",
                         "in": "body",
                         "required": true,
@@ -57,7 +57,7 @@
                     {
                         "type": "integer",
                         "example": 1,
-                        "description": "person id",
+                        "description": "id сущности",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -210,7 +210,7 @@
                 "summary": "Запрос обновления информации о сущности",
                 "parameters": [
                     {
-                        "description": "person description",
+                        "description": "описание сущности",
                         "name": "input",
                         "in": "body",
                         "required": true,
@@ -221,7 +221,7 @@
                     {
                         "type": "integer",
                         "example": 1,
-                        "description": "person id",
+                        "description": "id сущности",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -236,6 +236,9 @@
                     },
                     "404": {
                         "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
                     },
                     "500": {
                         "description": "Internal Server Error"

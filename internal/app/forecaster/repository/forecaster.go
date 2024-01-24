@@ -3,6 +3,8 @@ package repository
 import (
 	"context"
 	"errors"
+	"github.com/jackc/pgerrcode"
+	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/jackc/pgx/v5/pgxpool"
 
 	"github.com/jackc/pgx/v5"
@@ -78,6 +80,11 @@ func (r *forecaster) UpdatePerson(ctx context.Context, id int, data domain.Perso
 			data.Gender, data.Nationality, *data.IsDeleted, id)
 
 		if err != nil {
+			var pgErr *pgconn.PgError
+			if errors.As(err, &pgErr) && pgErr.Code == pgerrcode.UniqueViolation {
+				return appErrors.ErrUniqueViolation
+			}
+
 			return err
 		}
 

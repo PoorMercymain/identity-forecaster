@@ -38,7 +38,7 @@ func New(srv domain.ForecasterService, wg *sync.WaitGroup, retriesAmount uint, m
 // @Summary Запрос добавления сущности
 // @Description Запрос для добавления информации о новой сущности
 // @Accept json
-// @Param input body domain.Person true "person info"
+// @Param input body domain.Person true "информация о сущности"
 // @Success 202
 // @Failure 400
 // @Failure 500
@@ -169,7 +169,7 @@ func (h *forecaster) GetDataFromAPI(name string, api string, retriesAmount uint,
 // @Tags Persons
 // @Summary Запрос удаления сущности
 // @Description Запрос для удаления сущности
-// @Param id path int true "person id" Example(1)
+// @Param id path int true "id сущности" Example(1)
 // @Success 200
 // @Failure 400
 // @Failure 404
@@ -206,11 +206,12 @@ func (h *forecaster) DeletePersonByID(c echo.Context) error {
 // @Summary Запрос обновления информации о сущности
 // @Description Запрос для обновления информации о сущности (кроме id)
 // @Accept json
-// @Param input body domain.PersonWithAPIData true "person description"
-// @Param id path int true "person id" Example(1)
+// @Param input body domain.PersonWithAPIData true "описание сущности"
+// @Param id path int true "id сущности" Example(1)
 // @Success 200
 // @Failure 400
 // @Failure 404
+// @Failure 409
 // @Failure 500
 // @Router /update/{id} [put]
 func (h *forecaster) UpdatePerson(c echo.Context) error {
@@ -262,6 +263,12 @@ func (h *forecaster) UpdatePerson(c echo.Context) error {
 
 	if errors.Is(err, appErrors.ErrNoRowsFound) || errors.Is(err, appErrors.ErrNoRowsAffected) {
 		c.Response().WriteHeader(http.StatusNotFound)
+		logger.Logger().Debugln(err)
+		return err
+	}
+
+	if errors.Is(err, appErrors.ErrUniqueViolation) {
+		c.Response().WriteHeader(http.StatusConflict)
 		logger.Logger().Debugln(err)
 		return err
 	}
@@ -369,7 +376,7 @@ func (h *forecaster) ReadPersons(c echo.Context) error {
 	nameStr := c.QueryParam("name")
 	filters.NameEqualTo.Set(nameStr)
 
-	surnameStr := c.QueryParam("name")
+	surnameStr := c.QueryParam("surname")
 	filters.SurnameEqualTo.Set(surnameStr)
 
 	patronymicStr := c.QueryParam("patronymic")

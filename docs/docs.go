@@ -28,7 +28,7 @@ const docTemplate = `{
                 "summary": "Запрос добавления сущности",
                 "parameters": [
                     {
-                        "description": "person info",
+                        "description": "информация о сущности",
                         "name": "input",
                         "in": "body",
                         "required": true,
@@ -61,7 +61,7 @@ const docTemplate = `{
                     {
                         "type": "integer",
                         "example": 1,
-                        "description": "person id",
+                        "description": "id сущности",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -214,7 +214,7 @@ const docTemplate = `{
                 "summary": "Запрос обновления информации о сущности",
                 "parameters": [
                     {
-                        "description": "person description",
+                        "description": "описание сущности",
                         "name": "input",
                         "in": "body",
                         "required": true,
@@ -225,7 +225,7 @@ const docTemplate = `{
                     {
                         "type": "integer",
                         "example": 1,
-                        "description": "person id",
+                        "description": "id сущности",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -240,6 +240,9 @@ const docTemplate = `{
                     },
                     "404": {
                         "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
                     },
                     "500": {
                         "description": "Internal Server Error"

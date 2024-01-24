@@ -50,7 +50,7 @@ paths:
       - application/json
       description: Запрос для добавления информации о новой сущности
       parameters:
-      - description: person info
+      - description: информация о сущности
         in: body
         name: input
         required: true
@@ -70,7 +70,7 @@ paths:
     delete:
       description: Запрос для удаления сущности
       parameters:
-      - description: person id
+      - description: id сущности
         example: 1
         in: path
         name: id
@@ -178,13 +178,13 @@ paths:
       - application/json
       description: Запрос для обновления информации о сущности (кроме id)
       parameters:
-      - description: person description
+      - description: описание сущности
         in: body
         name: input
         required: true
         schema:
           $ref: '#/definitions/domain.PersonWithAPIData'
-      - description: person id
+      - description: id сущности
         example: 1
         in: path
         name: id
@@ -197,6 +197,8 @@ paths:
           description: Bad Request
         "404":
           description: Not Found
+        "409":
+          description: Conflict
         "500":
           description: Internal Server Error
       summary: Запрос обновления информации о сущности

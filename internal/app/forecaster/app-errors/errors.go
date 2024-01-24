@@ -9,4 +9,5 @@ var (
 	ErrNoRowsFound               = errors.New("no rows found")
 	ErrIncorrectQueryParam       = errors.New("incorrect value of a query param provided")
 	ErrRequiredFieldsNotProvided = errors.New("required fields not provided")
+	ErrUniqueViolation           = errors.New("the entity already exists in table")
 )
